@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Stars</title>
+		<link rel="stylesheet" type="text/css" href = "./css/styles.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	</head>
+
+<body>
+
+	<div id="container"></div>
+
+	<div class="container">
+		<div class = "jumbotron text-center">
+			<h3>Stars</h3>
+
+			<form id="optionsForm">
+  				<div class="form-group">
+    				<label id="numText">Number of stars</label>
+    				<input type="number" class="form-control" id="numOfStars" placeholder="1000">
+  				</div>
+  				<div class="form-group">
+    				<label id="speedText">Speed of stars</label>
+    				<input type="number" class="form-control" id="starSpeed" placeholder="50">
+  				</div>
+  				<button type="submit" class="btn btn-primary" id="customField">Custom starfield</button>
+  				<button type="submit" class="btn btn-success" id="randomField">Randomly generate starfield</button>
+			</form>
+
+		</div>
+	</div>
+
+	<script src="starfield.js"></script>
+	<script>
+
+		var container = document.getElementById('container');
+		var starfield = new Starfield();
+		starfield.initialise(container);
+		starfield.start();
+
+		$("button").click(function() {					
+			if(this.id == "customField"){
+
+				var num = $('#numOfStars').val();
+				var speed = $('#starSpeed').val();
+
+				starfield.stop();
+				starfield.stars = num;
+				starfield.minVelocity = speed;
+				starfield.maxVelocity = starfield.minVelocity;
+				starfield.start();
+
+			}else
+			if(this.id == "randomField"){
+
+				starfield.stop();
+				starfield.stars = Math.random()*1000 + 50;
+				starfield.minVelocity = Math.random()*50+5;
+				starfield.maxVelocity = Math.random()*100 + starfield.minVelocity;	
+				starfield.start();	
+
+			}
+		});
+	
+	</script>
+
+</body>
+
+</html>
